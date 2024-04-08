@@ -17,5 +17,6 @@ test.describe("Página de Cadastro", () => {
     await paginaCadastro.confirmarEmail(novoUsuario.email);
     await paginaCadastro.definirSenha(novoUsuario.senha);
     await paginaCadastro.confirmarSenha(novoUsuario.senha);
+    await paginaCadastro.confirmarTermos();
   });
 });
