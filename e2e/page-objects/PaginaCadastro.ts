@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { formatarDataParaForm } from "e2e/operacoes/datas";
 
 export default class PaginaCadastro {
   private readonly page: Page;
@@ -46,6 +47,52 @@ export default class PaginaCadastro {
     await this.page.goto('/');
     await this.botaoVisitarPaginaCadastro.click();
     await expect(this.page).toHaveURL('/auth/cadastro');
+  }
+
+  async definirNome(nome: string) {
+    await this.inputNome.fill(nome);
+  }
+
+  async definirDataNascimento(data: Date) {
+    const dataFormatada = formatarDataParaForm(data);
+    await this.inputDataNascimento.fill(dataFormatada);
+  }
+
+  async definirCPF(cpf: string) {
+    await this.inputCpf.fill(cpf);
+  }
+
+  async definirTelefone(telefone: string) {
+    await this.inputTelefone.fill(telefone);
+  }
+
+  async definirCidade(cidade: string) {
+    await this.inputCidade.fill(cidade);
+  }
+
+  async definirEstado(estado: string) {
+    await this.inputEstado.fill(estado);
+    await this.inputEstado.press('Enter');
+  }
+
+  async definirEmail(email: string) {
+    await this.inputEmail.fill(email);
+  }
+
+  async confirmarEmail(email: string) {
+    await this.inputConfirmarEmail.fill(email);
+  }
+
+  async definirSenha(senha: string) {
+    await this.inputSenha.fill(senha);
+  }
+
+  async confirmarSenha(senha: string) {
+    await this.inputConfirmarSenha.fill(senha);
+  }
+
+  async confirmarTermos() {
+    await this.checkboxTermos.check();
   }
 
   async estaMostrandoMensagemDeErro(mensagem: string) {
