@@ -18,7 +18,6 @@ export const test = base.extend<{
   },
   paginaLogin: async ({ page }, use) => {
     const paginaLogin = new PaginaLogin(page);
-    await paginaLogin.visitar();
     await use(paginaLogin);
   },
 });
