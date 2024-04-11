@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { formatarDataParaForm } from "e2e/operacoes/datas";
-import { Genero } from "e2e/operacoes/gerarPerfil";
+import { Genero, Perfil } from "e2e/operacoes/gerarPerfil";
 
 export default class FormBaseCadastroEPerfil {
   private readonly inputNome: Locator;
@@ -99,6 +99,24 @@ export default class FormBaseCadastroEPerfil {
 
   async confirmarSenha(senha: string) {
     await this.inputConfirmarSenha.fill(senha);
+  }
+
+  async preencherForm(dados: Perfil) {
+    await this.definirNome(dados.nome);
+    await this.definirGenero(dados.genero);
+    await this.definirDataNascimento(dados.dataNascimento);
+    await this.definirCPF(dados.cpf);
+    await this.definirTelefone(dados.telefone);
+    await this.definirCidade(dados.cidade);
+    await this.definirEstado(dados.estado);
+    await this.definirEmail(dados.email);
+    await this.confirmarEmail(dados.email);
+    await this.definirSenha(dados.senha);
+    await this.confirmarSenha(dados.senha);
+  }
+
+  async obterValorInputEmail() {
+    return this.inputEmail.inputValue();
   }
 
   async submeterForm() {

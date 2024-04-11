@@ -1,12 +1,12 @@
 import { Locator, Page, expect } from "@playwright/test";
 import FormBaseCadastroEPerfil from "./FormBaseCadastroEPerfil";
+import { Perfil } from "e2e/operacoes/gerarPerfil";
 
 export default class PaginaPerfil {
   private readonly page: Page;
-  private readonly formBase: FormBaseCadastroEPerfil;
+  readonly formBase: FormBaseCadastroEPerfil;
   private readonly linkPerfil: Locator;
   private readonly botaoDeslogar: Locator;
-  private readonly botaoLogin: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -14,12 +14,20 @@ export default class PaginaPerfil {
 
     this.linkPerfil = page.getByTestId('header-link-perfil');
     this.botaoDeslogar = page.getByTestId('form-base-botao-deslogar');
-    this.botaoLogin = page.getByTestId('botao-login');
   }
 
   async visitar() {
     await this.page.goto('/');
     await this.linkPerfil.click();
     await expect(this.page).toHaveURL('/auth/perfil');
+  }
+
+  async atualizarUsuario(novosDados: Perfil) {
+    await this.formBase.preencherForm(novosDados);
+    await this.formBase.submeterForm();
+  }
+
+  async atualizadoComSucesso() {
+    await expect(this.page).toHaveURL('/home');
   }
 }
