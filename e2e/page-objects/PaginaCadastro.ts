@@ -11,9 +11,9 @@ export default class PaginaCadastro {
   private readonly checkboxTermos: Locator;
 
   constructor(page: Page) {
+    this.page = page;
     this.formBase = new FormBaseCadastroEPerfil(page);
 
-    this.page = page;
     this.botaoVisitarPaginaCadastro = page.getByTestId('header-botao-cadastre-se');
     
     this.checkboxTermos = page

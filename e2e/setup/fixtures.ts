@@ -1,12 +1,14 @@
 import { test as base } from "@playwright/test";
+import PaginaPrincipal from "e2e/page-objects/PaginaPrincipal";
 import PaginaCadastro from "e2e/page-objects/PaginaCadastro";
 import PaginaLogin from "e2e/page-objects/PaginaLogin";
-import PaginaPrincipal from "e2e/page-objects/PaginaPrincipal";
+import PaginaPerfil from "e2e/page-objects/PaginaPerfil";
 
 export const test = base.extend<{
   paginaPrincipal: PaginaPrincipal,
   paginaCadastro: PaginaCadastro,
   paginaLogin: PaginaLogin,
+  paginaPerfil: PaginaPerfil
 }>({
   paginaPrincipal: async ({ page }, use) => {
     const paginaPrincipal = new PaginaPrincipal(page);
@@ -19,5 +21,9 @@ export const test = base.extend<{
   paginaLogin: async ({ page }, use) => {
     const paginaLogin = new PaginaLogin(page);
     await use(paginaLogin);
+  },
+  paginaPerfil: async ({ page }, use) => {
+    const paginaPerfil = new PaginaPerfil(page);
+    await use(paginaPerfil);
   },
 });
