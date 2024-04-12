@@ -7,6 +7,7 @@ export default class PaginaPrincipal {
   private readonly botaoIncrementarAdultos: Locator;
   private readonly botaoIncrementarCriancas: Locator;
   private readonly botaoIncrementarBebes: Locator;
+  private readonly botaoDefinirPassagemExecutiva: Locator;
   private readonly botaoFecharModalPassageiros: Locator;
   private readonly campoDropdownOrigem: Locator;
   private readonly campoDropdownDestino: Locator;
@@ -31,6 +32,8 @@ export default class PaginaPrincipal {
     this.botaoIncrementarBebes = page
       .getByTestId('seletor-passageiro-bebes')
       .getByRole('button', { name: 'adição' });
+
+    this.botaoDefinirPassagemExecutiva = page.getByTestId('botao-passagem-executiva');
 
     this.botaoFecharModalPassageiros = page.getByTestId('fechar-modal-passageiros');
 
@@ -80,6 +83,10 @@ export default class PaginaPrincipal {
     }
   }
 
+  async definirPassagemExecutiva() {
+    await this.botaoDefinirPassagemExecutiva.click();
+  }
+
   async fecharModalPassageiros() {
     await this.botaoFecharModalPassageiros.click();
   }
@@ -92,7 +99,7 @@ export default class PaginaPrincipal {
     await this.campoDropdownDestino.press('Enter');
   }
 
-  async definirData(data: Date) {
+  async definirDataIda(data: Date) {
     const dataFormatada = data.toLocaleString('en-US', { dateStyle: 'short' });
     await this.campoDataIda.fill(dataFormatada);
   }
