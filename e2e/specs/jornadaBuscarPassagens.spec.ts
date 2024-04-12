@@ -18,7 +18,55 @@ test.describe('Buscar Passagens', () => {
     await paginaPrincipal.estaMostrandoPassagem('Somente ida', 'Minas Gerais', 'Rio de Janeiro');
   });
 
-  test('Deve buscar passagem de somente ida, executiva', async ({ paginaPrincipal }) => {
+  test('Deve buscar passagem de somente ida, executiva', async ({ page, paginaPrincipal }) => {
+    await page.route('*/**/passagem/search*', async (rota) => {
+      const json = {
+        "paginaAtual": "1",
+        "ultimaPagina": 1,
+        "total": 1,
+        "precoMin": 20,
+        "precoMax": 5000,
+        "resultado": [
+          {
+            "id": 2,
+            "tipo": "Executiva",
+            "precoIda": 3000,
+            "precoVolta": 2700,
+            "taxaEmbarque": 175,
+            "conexoes": 2,
+            "tempoVoo": 6,
+            "origem": {
+              "id": 11,
+              "nome": "Paraíba",
+              "sigla": "PB"
+            },
+            "destino": {
+              "id": 19,
+              "nome": "Roraima",
+              "sigla": "RR"
+            },
+            "companhia": {
+              "id": 4,
+              "nome": "Latam"
+            },
+            "dataIda": "2024-04-12T03:00:00.000Z",
+            "dataVolta": null,
+            "orcamento": [
+              {
+                "descricao": "1 adulto, executiva",
+                "preco": 3000,
+                "taxaEmbarque": 175,
+                "total": 2975
+              }
+            ],
+            "total": 3175
+          }
+        ]
+      };
+
+      await rota.fulfill({ json });
+    });
+
     await paginaPrincipal.visitar();
     await paginaPrincipal.definirSomenteIda();
 
