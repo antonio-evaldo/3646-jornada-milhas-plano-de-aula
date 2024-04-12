@@ -3,17 +3,17 @@ import { formatarDataParaForm } from "e2e/operacoes/datas";
 import { Genero, Perfil } from "e2e/operacoes/gerarPerfil";
 
 export default class FormBaseCadastroEPerfil {
-  private readonly inputNome: Locator;
-  private readonly radiosGeneros: { [chave in Genero]: Locator };
-  private readonly inputDataNascimento: Locator;
-  private readonly inputCpf: Locator;
-  private readonly inputCidade: Locator;
-  private readonly inputTelefone: Locator;
-  private readonly inputEstado: Locator;
-  private readonly inputEmail: Locator;
-  private readonly inputSenha: Locator;
-  private readonly inputConfirmarEmail: Locator;
-  private readonly inputConfirmarSenha: Locator;
+  readonly inputNome: Locator;
+  readonly radiosGeneros: { [chave in Genero]: Locator };
+  readonly inputDataNascimento: Locator;
+  readonly inputCpf: Locator;
+  readonly inputCidade: Locator;
+  readonly inputTelefone: Locator;
+  readonly inputEstado: Locator;
+  readonly inputEmail: Locator;
+  readonly inputSenha: Locator;
+  readonly inputConfirmarEmail: Locator;
+  readonly inputConfirmarSenha: Locator;
   private readonly botaoSubmeterForm: Locator;
 
   constructor(page: Page) {

@@ -10,5 +10,8 @@ testeLogado.describe("Página de perfil", () => {
 
     await paginaPerfil.atualizarUsuario({ ...novosDados, email: emailAtual });
     await paginaPerfil.atualizadoComSucesso();
+
+    await paginaPerfil.visitar();
+    await paginaPerfil.dadosEstaoCorretos({ ...novosDados, email: emailAtual });
   });
 });

@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import FormBaseCadastroEPerfil from "./FormBaseCadastroEPerfil";
 import { Perfil } from "e2e/operacoes/gerarPerfil";
+import { formatarDataParaForm } from "e2e/operacoes/datas";
 
 export default class PaginaPerfil {
   private readonly page: Page;
@@ -29,5 +30,19 @@ export default class PaginaPerfil {
 
   async atualizadoComSucesso() {
     await expect(this.page).toHaveURL('/home');
+  }
+
+  async dadosEstaoCorretos({ nome, dataNascimento, genero, cpf, telefone, cidade, estado, email }: Perfil) {
+    const dataNascimentoFormatada = formatarDataParaForm(dataNascimento);
+    const radioGenero = this.formBase.radiosGeneros[genero];
+
+    await expect(this.formBase.inputNome).toHaveValue(nome);
+    await expect(this.formBase.inputDataNascimento).toHaveValue(dataNascimentoFormatada);
+    await expect(radioGenero).toBeChecked();
+    await expect(this.formBase.inputCpf).toHaveValue(cpf);
+    await expect(this.formBase.inputTelefone).toHaveValue(telefone);
+    await expect(this.formBase.inputCidade).toHaveValue(cidade);
+    await expect(this.formBase.inputEstado).toHaveValue(estado);
+    await expect(this.formBase.inputEmail).toHaveValue(email);
   }
 }
