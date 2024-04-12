@@ -19,6 +19,8 @@ test.describe('Buscar Passagens', () => {
   });
 
   test('Deve buscar passagem de somente ida, executiva', async ({ page, paginaPrincipal }) => {
+    const dataIda = new Date();
+
     await page.route('*/**/passagem/search*', async (rota) => {
       const json = {
         "paginaAtual": "1",
@@ -49,7 +51,7 @@ test.describe('Buscar Passagens', () => {
               "id": 4,
               "nome": "Latam"
             },
-            "dataIda": "2024-04-12T03:00:00.000Z",
+            "dataIda": dataIda.toISOString(),
             "dataVolta": null,
             "orcamento": [
               {
@@ -75,7 +77,7 @@ test.describe('Buscar Passagens', () => {
     await paginaPrincipal.fecharModalPassageiros();
 
     await paginaPrincipal.definirOrigemEDestino('paraíba', 'roraima');
-    await paginaPrincipal.definirDataIda(new Date());
+    await paginaPrincipal.definirDataIda(dataIda);
     await paginaPrincipal.buscarPassagens();
 
     await paginaPrincipal.estaMostrandoPassagem('Somente ida', 'Paraíba', 'Roraima');
